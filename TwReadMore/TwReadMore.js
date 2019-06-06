@@ -22,6 +22,7 @@
         if (!this.container) {
             return null;
         }
+        this.container.classList.add('tw-readmore');
 
         // Get elements to hide, move them to a dedicated container
         this.elementsToHide = this.container.querySelectorAll('p:first-of-type ~ *');
@@ -29,6 +30,7 @@
             return null;
         }
         this.elementsToHideContainer = document.createElement('div');
+        this.elementsToHideContainer.classList.add('tw-readmore__hide-elements');
         this.container.appendChild(this.elementsToHideContainer);
         for (var i = 0, len = this.elementsToHide.length; i < len; i++) {
             this.elementsToHideContainer.appendChild(this.elementsToHide[i]);
@@ -58,6 +60,7 @@
     TwReadMore.Element.prototype.createReadMoreButton = function () {
         // Create button element
         this.readMoreButton = document.createElement('button');
+        this.readMoreButton.classList.add('tw-readmore__button');
         this.readMoreButton.twReadMore = {
             moreLabel: this.container.attributes['data-read-more'] ? this.container.attributes['data-read-more'].value : 'Read more',
             lessLabel: this.container.attributes['data-read-less'] ? this.container.attributes['data-read-less'].value : null
