@@ -62,6 +62,7 @@
     TwReadMore.Element.prototype.createReadMoreButton = function () {
         // Create button element
         this.readMoreButton = document.createElement('button');
+        this.readMoreButton.setAttribute('type', 'button');
         this.readMoreButton.classList.add('tw-readmore__button');
         this.readMoreButton.twReadMore = {
             moreLabel: this.container.attributes['data-read-more-text'] ? this.container.attributes['data-read-more-text'].value : 'Read more',
@@ -120,6 +121,5 @@
 })();
 
 Tollwerk.Init.registerOnReady(function () {
-    var automaticReadmore = new TwReadMore.Manager();
-    var filterFormReadMore = new TwReadMore.Element(document.querySelector('#filter'), '.FormFieldset__content > fieldset:nth-child(5) ~ *');
+    new TwReadMore.Manager();
 });
