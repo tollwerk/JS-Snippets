@@ -24,7 +24,9 @@
         }
         this.container.classList.add('tw-readmore');
 
-        // Get elements to hide, move them to a dedicated container
+        // Get elements to hide, move them to a dedicated container.
+        // Return null if there are no elements to hide.
+
         this.elementsToHide = this.container.querySelectorAll('p:first-of-type ~ *');
         if (!this.elementsToHide.length) {
             return null;
@@ -43,7 +45,7 @@
         // Hide elements at start and store this entity for later use
         this.hideElements();
         this.container.twReadMore = this;
-    }
+    };
 
     /**
      * Status of the read more element
@@ -62,8 +64,8 @@
         this.readMoreButton = document.createElement('button');
         this.readMoreButton.classList.add('tw-readmore__button');
         this.readMoreButton.twReadMore = {
-            moreLabel: this.container.attributes['data-read-more'] ? this.container.attributes['data-read-more'].value : 'Read more',
-            lessLabel: this.container.attributes['data-read-less'] ? this.container.attributes['data-read-less'].value : null
+            moreLabel: this.container.attributes['data-read-more-text'] ? this.container.attributes['data-read-more-text'].value : 'Read more',
+            lessLabel: this.container.attributes['data-read-less-text'] ? this.container.attributes['data-read-less-text'].value : 'Read less'
         };
 
         this.readMoreButton.textContent = this.readMoreButton.twReadMore.moreLabel;
@@ -72,7 +74,7 @@
         }.bind(this));
 
         this.container.insertBefore(this.readMoreButton, this.elementsToHideContainer);
-    }
+    };
 
     /**
      * Show all elements
@@ -89,7 +91,7 @@
             return null;
         }
         this.readMoreButton.textContent = this.readMoreButton.twReadMore.lessLabel;
-    }
+    };
 
     /**
      * Hide all elements
@@ -100,7 +102,7 @@
         this.elementsToHideContainer.setAttribute('data-read-more-status', TwReadMore.Element.STATUS.inactive);
         this.readMoreButton.textContent = this.readMoreButton.twReadMore.moreLabel;
         this.status = TwReadMore.Element.STATUS.inactive;
-    }
+    };
 
 
     /**
