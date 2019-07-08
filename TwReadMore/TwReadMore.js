@@ -104,7 +104,6 @@
         this.status = TwReadMore.Element.STATUS.inactive;
     };
 
-
     /**
      * Toggle between showing and hiding all elements
      *
@@ -118,11 +117,9 @@
         this.hideElements();
         return false;
     }
-
 })();
 
 Tollwerk.Init.registerOnReady(function () {
     var automaticReadmore = new TwReadMore.Manager();
     var filterFormReadMore = new TwReadMore.Element(document.querySelector('#filter'), '.FormFieldset__content > fieldset:nth-child(5) ~ *');
-
 });
