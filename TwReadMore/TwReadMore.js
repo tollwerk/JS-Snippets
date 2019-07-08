@@ -16,7 +16,7 @@
      * @returns {null}
      * @constructor
      */
-    TwReadMore.Element = function (container) {
+    TwReadMore.Element = function (container, elementsToHideSelector) {
         // Get root container
         this.container = container;
         if (!this.container) {
@@ -27,13 +27,13 @@
         // Get elements to hide, move them to a dedicated container.
         // Return null if there are no elements to hide.
 
-        this.elementsToHide = this.container.querySelectorAll('p:first-of-type ~ *');
+        this.elementsToHide = this.container.querySelectorAll(elementsToHideSelector || 'p:first-of-type ~ *');
         if (!this.elementsToHide.length) {
             return null;
         }
         this.elementsToHideContainer = document.createElement('div');
         this.elementsToHideContainer.classList.add('tw-readmore__hide-elements');
-        this.container.appendChild(this.elementsToHideContainer);
+        this.elementsToHide[0].parentNode.insertBefore(this.elementsToHideContainer, this.elementsToHide[0]);
         for (var i = 0, len = this.elementsToHide.length; i < len; i++) {
             this.elementsToHideContainer.appendChild(this.elementsToHide[i]);
         }
@@ -73,7 +73,7 @@
             this.toggle();
         }.bind(this));
 
-        this.container.insertBefore(this.readMoreButton, this.elementsToHideContainer);
+        this.elementsToHideContainer.parentNode.insertBefore(this.readMoreButton, this.elementsToHideContainer);
     };
 
     /**
@@ -122,5 +122,7 @@
 })();
 
 Tollwerk.Init.registerOnReady(function () {
-    new TwReadMore.Manager();
+    var automaticReadmore = new TwReadMore.Manager();
+    var filterFormReadMore = new TwReadMore.Element(document.querySelector('#filter'), '.FormFieldset__content > fieldset:nth-child(5) ~ *');
+
 });
